@@ -38,22 +38,13 @@ double book_sqrt(double s, int nstep) {
         do 
         {
             steps[i].probe--; 
-            switch (i)
-            {
-                case 0:
-                    steps[i]._double = -1;
-                    steps[i].prod    = steps[i].probe * steps[i].probe;
-                    break;
-                default:
-                    steps[i]._double = 0;
-                    for (int j = 0; j < i; j++) {
-                        steps[i]._double *= 10;
-                        steps[i]._double += steps[j].probe;
-                    }
-                    steps[i]._double *= 2;
-                    steps[i].prod    = (steps[i]._double * 10 + steps[i].probe) * steps[i].probe;
-                    break;
+            steps[i]._double = 0;
+            for (int j = 0; j < i; j++) {
+                steps[i]._double *= 10;
+                steps[i]._double += steps[j].probe;
             }
+            steps[i]._double *= 2;
+            steps[i].prod    = (steps[i]._double * 10 + steps[i].probe) * steps[i].probe;
         }
         while (steps[i].prod > steps[i].testval);
         steps[i].remainder = steps[i].testval - steps[i].prod;
